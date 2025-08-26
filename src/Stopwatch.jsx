@@ -6,6 +6,7 @@ function Stopwatch() {
   const [isRunning, setIsRunning] = useState(false);
   const API_BASE_URL =
     "https://stopwatch-backend-dy3z.onrender.com/api/stopwatch";
+  // const API_BASE_URL = "http://localhost:5173";
 
   useEffect(() => {
     let intervalId;
@@ -17,7 +18,7 @@ function Stopwatch() {
         } catch (error) {
           console.error("Error fetching time:", error);
         }
-      }, 100);
+      }, 1000);
     }
     return () => clearInterval(intervalId);
   }, [isRunning]);
@@ -53,12 +54,12 @@ function Stopwatch() {
     }
   };
 
-  const formatTime = (ms) => {
-    const minutes = Math.floor(ms / 60000);
-    const seconds = Math.floor((ms % 60000) / 1000);
-    const milliseconds = ms % 1000;
+  const formatTime = (sec) => {
+    const hours = Math.floor(sec / 3600);
+    const minutes = Math.floor((sec % 3600) / 60);
+    const seconds = sec % 60;
     const pad = (num, size) => num.toString().padStart(size, "0");
-    return `${pad(minutes, 2)}:${pad(seconds, 2)}.${pad(milliseconds, 3)}`;
+    return `${pad(hours, 2)}:${pad(minutes, 2)}.${pad(seconds, 2)}`;
   };
 
   return (
