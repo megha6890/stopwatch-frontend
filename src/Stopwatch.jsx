@@ -54,12 +54,17 @@ function Stopwatch() {
     }
   };
 
-  const formatTime = (sec) => {
-    const hours = Math.floor(sec / 3600);
-    const minutes = Math.floor((sec % 3600) / 60);
-    const seconds = sec % 60;
+  const formatTime = (ms) => {
+    const hours = Math.floor(ms / 3600000); // 1000*60*60
+    const minutes = Math.floor((ms % 3600000) / 60000);
+    const seconds = Math.floor((ms % 60000) / 1000);
+    const milliseconds = ms % 1000;
+
     const pad = (num, size) => num.toString().padStart(size, "0");
-    return `${pad(hours, 2)}:${pad(minutes, 2)}.${pad(seconds, 2)}`;
+    return `${pad(hours, 2)}:${pad(minutes, 2)}:${pad(seconds, 2)}.${pad(
+      milliseconds,
+      3
+    )}`;
   };
 
   return (
